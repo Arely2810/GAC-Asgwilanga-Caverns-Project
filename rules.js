@@ -71,8 +71,13 @@ function zero_max_rule(var other1, var other2, var same) {
 
 // verify function
 function verify_all(var a, var b, var c, var x, var y, var z, var sum, var same, var other1, var other2) {
-  limit_rule(a, b, c);
-  sum_rule(x, y, z);
-  single_same_rule(a, b, c, sum);
-  zero_max_rule(other1, other2, same);
+  var pass1, pass2, pass3, pass4 = true;
+  pass1 = limit_rule(a, b, c);
+  pass2 = sum_rule(x, y, z);
+  pass3 = single_same_rule(a, b, c, sum);
+  pass4 = zero_max_rule(other1, other2, same);
+  if (pass1 == false || pass2 == false || pass3 == false || pass4 == false) {
+    return false;
+  }
+  return true;
 }
