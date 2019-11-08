@@ -1,0 +1,207 @@
+<!doctype html><html><head>
+<title>This is a test</title>
+</head>
+<body><h1>Check console...</h1>
+</body>
+<script>
+
+/* TODO:
+  1. Create seperate files for Graph and Node class.
+  2, Implement check for room rules (sum, zero-max, limit, and single-same) before traversal.
+  3. In what order should rooms traverse when deciding between neighbors?
+    -Currently implemented by order in which graph was generaetd.
+    -Could implement by residue after checking adjacent nodes.
+        ->Would greatly change the order of traversal.
+        ->If we do, should we move nodes on graph to be more realistic?
+  4. Implement draw functions alongside traversal.
+  5. Add time breaks of 15 seconds before travsering.
+
+
+*/
+class Node {
+  constructor (n, p1, p2, p3) {
+    this.name = n;
+    this.x = p1;
+    this.y = p2;
+    this.z = p3;
+    this.residue = Math.abs(p1-p2) + Math.abs(p2-p3) + Math.abs(p3-p1);
+  }
+}
+class Graph {
+  constructor() {
+    this.adj_list = new Map();
+  }
+  add_node(node) {
+    this.adj_list.set(node, []);
+  }
+  add_edge(node1, node2) {
+    this.adj_list.get(node1).push(node2);
+    this.adj_list.get(node2).push(node1);
+  }
+  generate_nodes() {
+    /*Names are related by their x,y,z numbers.
+    0 -> 0    9 -> 9
+    1 -> 1    10 -> A
+    2 -> 2    11 -> B
+    3 -> 3    12 -> C
+    4 -> 4    13 -> D
+    5 -> 5    14 -> E
+    6 -> 6    15 -> F
+    7 -> 7    16 -> G
+    8 -> 8
+    */
+    let node_0 = new Node("G00", 16, 0, 0);
+    let node_1 = new Node("097", 0, 9, 7);
+    let node_2 = new Node("718", 7, 1, 8);
+    let node_3 = new Node("880", 8, 8, 0);
+    let node_4 = new Node("088", 0, 8, 8);
+    let node_5 = new Node("E02", 14, 0, 2);
+    let node_6 = new Node("268", 2, 6, 8);
+    let node_7 = new Node("A06", 10, 0, 6);
+    let node_8 = new Node("196", 1, 9, 6);
+    let node_9 = new Node("178", 1, 7, 8);
+    let node_10 = new Node("907", 0, 0, 7);
+    let node_11 = new Node("691", 6, 9, 1);
+    let node_12 = new Node("A60", 10, 6, 0);
+    let node_13 = new Node("B50", 11, 5, 0);
+    let node_14 = new Node("B05", 10, 0, 5);
+    let node_15 = new Node("538", 5, 3, 8);
+    let node_16 = new Node("790", 7, 9, 0);
+    let node_17 = new Node("C04", 12, 0, 4);
+    let node_18 = new Node("E20", 14, 2, 0);
+    let node_19 = new Node("D03", 13, 0, 3);
+    let node_20 = new Node("D30", 13, 3, 0);
+    let node_21 = new Node("358", 3, 5, 8);
+    let node_22 = new Node("493", 4, 9, 3);
+    let node_23 = new Node("C40", 12, 4, 0);
+    let node_24 = new Node("448", 4, 4, 8);
+    let node_25 = new Node("808", 8, 0, 8);
+    let node_26 = new Node("592", 5, 9, 2);
+    let node_27 = new Node("628", 6, 2, 8);
+    let node_28 = new Node("295", 2, 9, 5);
+    let node_29 = new Node("F01", 15, 0, 1);
+    let node_30 = new Node("F10", 15, 1, 0);
+    let node_31 = new Node("970", 9, 7, 0);
+    let node_32 = new Node("394", 3, 9, 4);
+
+    this.add_node(node_0);
+    this.add_node(node_1);
+    this.add_node(node_2);
+    this.add_node(node_3);
+    this.add_node(node_4);
+    this.add_node(node_5);
+    this.add_node(node_6);
+    this.add_node(node_7);
+    this.add_node(node_8);
+    this.add_node(node_9);
+    this.add_node(node_10);
+    this.add_node(node_11);
+    this.add_node(node_12);
+    this.add_node(node_13);
+    this.add_node(node_14);
+    this.add_node(node_15);
+    this.add_node(node_16);
+    this.add_node(node_17);
+    this.add_node(node_18);
+    this.add_node(node_19);
+    this.add_node(node_20);
+    this.add_node(node_21);
+    this.add_node(node_22);
+    this.add_node(node_23);
+    this.add_node(node_24);
+    this.add_node(node_25);
+    this.add_node(node_26);
+    this.add_node(node_27);
+    this.add_node(node_28);
+    this.add_node(node_29);
+    this.add_node(node_30);
+    this.add_node(node_31);
+    this.add_node(node_32);
+
+    //Follows DFS on img/program for debugging
+    //Order in which edges are added, doesn't matter.
+    this.add_edge(node_0, node_1);
+    this.add_edge(node_1, node_2);
+    this.add_edge(node_2, node_3);
+    this.add_edge(node_3, node_4);
+    this.add_edge(node_4, node_5);
+    this.add_edge(node_5, node_6);
+    this.add_edge(node_6, node_7);
+    this.add_edge(node_7, node_8);
+    this.add_edge(node_8, node_9);
+    this.add_edge(node_2, node_10);
+    this.add_edge(node_10, node_11);
+    this.add_edge(node_10, node_12);
+    this.add_edge(node_10, node_13);
+    this.add_edge(node_13, node_14);
+    this.add_edge(node_14, node_15);
+    this.add_edge(node_0, node_16);
+    this.add_edge(node_16, node_17);
+    this.add_edge(node_17, node_18);
+    this.add_edge(node_18, node_19);
+    this.add_edge(node_19, node_20);
+    this.add_edge(node_20, node_21);
+    this.add_edge(node_21, node_22);
+    this.add_edge(node_22, node_23);
+    this.add_edge(node_23, node_24);
+    this.add_edge(node_24, node_25);
+    this.add_edge(node_21, node_26);
+    this.add_edge(node_26, node_27);
+    this.add_edge(node_27, node_28);
+    this.add_edge(node_18, node_29);
+    this.add_edge(node_29, node_30);
+    this.add_edge(node_0, node_31);
+    this.add_edge(node_31, node_32);
+    this.add_edge(node_17, node_30);
+    this.add_edge(node_20, node_22);
+  }
+  print_adjacency()  {
+    let get_keys = this.adj_list.keys();
+    console.log("Printing adjacency list")
+    // iterate over the nodes
+    for (let i of get_keys)
+    {
+        // get the corresponding adjacency list
+        let get_values = this.adj_list.get(i);
+        let conc = "";
+
+        // iterate over the adjacency list
+        // concatenate the values into a string
+        for (let j of get_values)
+            conc += j.name + " ";
+
+        // print the node name and its adjacency list
+        console.log(i.name + " -> " + conc);
+    }
+  }
+  DFS() {
+    let starting_node = this.adj_list.keys().next().value; //Get the first node pushed into map.
+    let visited = [];
+    let smallest = [];
+    smallest.push(starting_node);
+
+    console.log("\nDepth First Search");
+    this.DFS_helper(starting_node, visited, smallest);
+    console.log("Smallest node is at " + smallest[0].name + " with residue of " + smallest[0].residue + '.');
+  }
+  DFS_helper(node, visited, smallest) {
+    visited.push(node);
+    let neighbors = this.adj_list.get(node); //create array of adjacent nodes
+    console.log(node.name);
+    if (node.residue < smallest[0].residue)
+    smallest[0] = node;
+
+    for (let i in neighbors) {
+      if (!visited.includes(neighbors[i]))  //if adjacent nodes have not been visited, explore them.
+        this.DFS_helper(neighbors[i], visited, smallest); //can add a check to ensure it follows 4 rules with boolean here...
+      }
+  }
+}
+
+let graph = new Graph();
+graph.generate_nodes();
+graph.print_adjacency();
+graph.DFS();
+
+</script>
+</html>
