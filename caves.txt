@@ -1,0 +1,41 @@
+~Rules~
+ID Limit Rule: x, y, and z respective maximums are 16, 9, 8.
+Sum Rule: Must always sum to 16.
+Single Same Rule: One digit must remain the same.
+Zero-Max Rule: One digit must change to max or min.
+
+~Creating Caves~
+Coordinates	Residue
+4 4 8		8
+5 3 8		10
+3 5 8		10
+4 9 3		12
+3 9 4		12
+6 2 8		12
+2 6 8		12
+5 9 2		14
+2 9 5		14
+7 1 8		14
+1 7 8		14
+6 9 1		16
+1 9 6		16
+0 8 8		16
+8 0 8		16
+8 8 0		16
+0 9 7		18
+9 0 7		18
+9 7 0		18
+7 9 0		18
+10 0 6		20
+10 6 0		20
+11 0 5		22
+11 5 0		22
+12 0 4		24
+12 4 0		24
+13 0 3		26
+13 3 0		26
+14 0 2		28
+14 2 0		28
+15 0 1		30
+15 1 0		30
+16 0 0		32
