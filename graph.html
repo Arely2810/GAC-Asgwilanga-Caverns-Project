@@ -1,11 +1,9 @@
 <!doctype html><html><head>
 <title>This is a test</title>
-</head>
-<body><h1>Check console...</h1>
-</body>
+<script src="./rules.js"></script>
 <script>
 
-/* TODO:
+/* T
   1. Create seperate files for Graph and Node class.
   2, Implement check for room rules (sum, zero-max, limit, and single-same) before traversal.
   3. In what order should rooms traverse when deciding between neighbors?
@@ -202,6 +200,16 @@ let graph = new Graph();
 graph.generate_nodes();
 graph.print_adjacency();
 graph.DFS();
+limit_rule(3, 2, 1);
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+draw_rect( ctx, 'lightgrey', 'black',0,0,800,800);
+
 
 </script>
+
+</head>
+<body><h1>Check console...</h1>
+<canvas id="canvas" width="800" height="800"></canvas>
+</body>
 </html>
