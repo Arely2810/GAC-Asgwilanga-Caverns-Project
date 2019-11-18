@@ -1,6 +1,8 @@
 <!doctype html><html><head>
 <title>This is a test</title>
-<script src="./rules.js"></script>
+</head>
+<body><h1>Check console...</h1>
+<canvas id="canvas" width="800" height="800"></canvas>
 <script>
 
 /* T
@@ -29,14 +31,17 @@ class Graph {
   constructor() {
     this.adj_list = new Map();
   }
-  add_node(node) {
+  add_node(rctx, node) {
     this.adj_list.set(node, []);
+    draw_node(rctx, node)
+
   }
-  add_edge(node1, node2) {
+  add_edge(rctx, node1, node2) {
     this.adj_list.get(node1).push(node2);
     this.adj_list.get(node2).push(node1);
+    draw_line(rctx, node1, node2);
   }
-  generate_nodes() {
+  generate_nodes(rctx) {
     /*Names are related by their x,y,z numbers.
     0 -> 0    9 -> 9
     1 -> 1    10 -> A
@@ -82,76 +87,76 @@ class Graph {
     let node_31 = new Node("970", 9, 7, 0);
     let node_32 = new Node("394", 3, 9, 4);
 
-    this.add_node(node_0);
-    this.add_node(node_1);
-    this.add_node(node_2);
-    this.add_node(node_3);
-    this.add_node(node_4);
-    this.add_node(node_5);
-    this.add_node(node_6);
-    this.add_node(node_7);
-    this.add_node(node_8);
-    this.add_node(node_9);
-    this.add_node(node_10);
-    this.add_node(node_11);
-    this.add_node(node_12);
-    this.add_node(node_13);
-    this.add_node(node_14);
-    this.add_node(node_15);
-    this.add_node(node_16);
-    this.add_node(node_17);
-    this.add_node(node_18);
-    this.add_node(node_19);
-    this.add_node(node_20);
-    this.add_node(node_21);
-    this.add_node(node_22);
-    this.add_node(node_23);
-    this.add_node(node_24);
-    this.add_node(node_25);
-    this.add_node(node_26);
-    this.add_node(node_27);
-    this.add_node(node_28);
-    this.add_node(node_29);
-    this.add_node(node_30);
-    this.add_node(node_31);
-    this.add_node(node_32);
+    this.add_node(rctx, node_0);
+    this.add_node(rctx, node_1);
+    this.add_node(rctx, node_2);
+    this.add_node(rctx, node_3);
+    this.add_node(rctx, node_4);
+    this.add_node(rctx, node_5);
+    this.add_node(rctx, node_6);
+    this.add_node(rctx, node_7);
+    this.add_node(rctx, node_8);
+    this.add_node(rctx, node_9);
+    this.add_node(rctx, node_10);
+    this.add_node(rctx, node_11);
+    this.add_node(rctx, node_12);
+    this.add_node(rctx, node_13);
+    this.add_node(rctx, node_14);
+    this.add_node(rctx, node_15);
+    this.add_node(rctx, node_16);
+    this.add_node(rctx, node_17);
+    this.add_node(rctx, node_18);
+    this.add_node(rctx, node_19);
+    this.add_node(rctx, node_20);
+    this.add_node(rctx, node_21);
+    this.add_node(rctx, node_22);
+    this.add_node(rctx, node_23);
+    this.add_node(rctx, node_24);
+    this.add_node(rctx, node_25);
+    this.add_node(rctx, node_26);
+    this.add_node(rctx, node_27);
+    this.add_node(rctx, node_28);
+    this.add_node(rctx, node_29);
+    this.add_node(rctx, node_30);
+    this.add_node(rctx, node_31);
+    this.add_node(rctx, node_32);
 
     //Follows DFS on img/program for debugging
     //Order in which edges are added, doesn't matter.
-    this.add_edge(node_0, node_1);
-    this.add_edge(node_1, node_2);
-    this.add_edge(node_2, node_3);
-    this.add_edge(node_3, node_4);
-    this.add_edge(node_4, node_5);
-    this.add_edge(node_5, node_6);
-    this.add_edge(node_6, node_7);
-    this.add_edge(node_7, node_8);
-    this.add_edge(node_8, node_9);
-    this.add_edge(node_2, node_10);
-    this.add_edge(node_10, node_11);
-    this.add_edge(node_10, node_12);
-    this.add_edge(node_10, node_13);
-    this.add_edge(node_13, node_14);
-    this.add_edge(node_14, node_15);
-    this.add_edge(node_0, node_16);
-    this.add_edge(node_16, node_17);
-    this.add_edge(node_17, node_18);
-    this.add_edge(node_18, node_19);
-    this.add_edge(node_19, node_20);
-    this.add_edge(node_20, node_21);
-    this.add_edge(node_21, node_22);
-    this.add_edge(node_22, node_23);
-    this.add_edge(node_23, node_24);
-    this.add_edge(node_24, node_25);
-    this.add_edge(node_21, node_26);
-    this.add_edge(node_26, node_27);
-    this.add_edge(node_27, node_28);
-    this.add_edge(node_18, node_29);
-    this.add_edge(node_29, node_30);
-    this.add_edge(node_0, node_31);
-    this.add_edge(node_31, node_32);
-    this.add_edge(node_17, node_30);
-    this.add_edge(node_20, node_22);
+    this.add_edge(rctx, node_0, node_1);
+    this.add_edge(rctx, node_1, node_2);
+    this.add_edge(rctx, node_2, node_3);
+    this.add_edge(rctx, node_3, node_4);
+    this.add_edge(rctx, node_4, node_5);
+    this.add_edge(rctx, node_5, node_6);
+    this.add_edge(rctx, node_6, node_7);
+    this.add_edge(rctx, node_7, node_8);
+    this.add_edge(rctx, node_8, node_9);
+    this.add_edge(rctx, node_2, node_10);
+    this.add_edge(rctx, node_10, node_11);
+    this.add_edge(rctx, node_10, node_12);
+    this.add_edge(rctx, node_10, node_13);
+    this.add_edge(rctx, node_13, node_14);
+    this.add_edge(rctx, node_14, node_15);
+    this.add_edge(rctx, node_0, node_16);
+    this.add_edge(rctx, node_16, node_17);
+    this.add_edge(rctx, node_17, node_18);
+    this.add_edge(rctx, node_18, node_19);
+    this.add_edge(rctx, node_19, node_20);
+    this.add_edge(rctx, node_20, node_21);
+    this.add_edge(rctx, node_21, node_22);
+    this.add_edge(rctx, node_22, node_23);
+    this.add_edge(rctx, node_23, node_24);
+    this.add_edge(rctx, node_24, node_25);
+    this.add_edge(rctx, node_21, node_26);
+    this.add_edge(rctx, node_26, node_27);
+    this.add_edge(rctx, node_27, node_28);
+    this.add_edge(rctx, node_18, node_29);
+    this.add_edge(rctx, node_29, node_30);
+    this.add_edge(rctx, node_0, node_31);
+    this.add_edge(rctx, node_31, node_32);
+    this.add_edge(rctx, node_17, node_30);
+    this.add_edge(rctx, node_20, node_22);
   }
   print_adjacency()  {
     let get_keys = this.adj_list.keys();
@@ -194,22 +199,135 @@ class Graph {
         this.DFS_helper(neighbors[i], visited, smallest); //can add a check to ensure it follows 4 rules with boolean here...
       }
   }
-}
+  // residue: |a-b| + |b-c| + |c-a|
+  residue(var a, var b, var c) {
+    if (a < 0) {
+      a *= -1;
+    } else if (b < 0) {
+      b *= -1;
+    } else if (c < 0) {
+      c *= -1;
+    }
+    return ((a-b) + (b-c) + (c-a));
+  }
+  // limit rule: x less than 16, y less than 9, z less than 7
+  limit_rule(var x, var y, var z) {
+    if (x > 16) {
+      return false;
+    } else if (y > 9) {
+      return false;
+    } else if (z > 7) {
+      return false;
+    }
+    return true;
+  }
+  // sum rule: check if (a + b + c) is equal to the previous sum
+  sum_rule(var a, var b, var c, var sum) {
+    var temp_sum = a + b + c;
+    if (temp_sum != sum) {
+      return false;
+    }
+    return true;
+  }
+  // single-same rule: compare 1st povar (a, b, c) and 2nd povar (x, y, z)
+  single_same_rule(var a, var b, var c, var x, var y, var z) {
+    if (a == x) {
+      zero_max_rule(y, z);
+      return true;
+    } else if (b == y) {
+      zero_max_rule(x, z);
+      return true;
+    } else if (c == z) {
+      zero_max_rule(x, y);
+      return true;
+    }
+    return false;
+  }
+  // zero-max rule
+  zero_max_rule(var other1, var other2, var same) {
+    var limit = 16;
+    var max = limit - same;
+    var temp = limit;
+    var temp2 = limit;
+    temp -= other1;
+    temp2 -= other2;
+    if (temp == max) {
+      temp -= other1;
+      if (temp == 0) {
+        return true;
+      }
+    } else if (temp2 == max) {
+      temp2 -= other2;
+      if (temp2 == 0) {
+        return true;
+      }
+    }
+    return false;
+  }
+  // verify function
+  verify_all(var a, var b, var c, var x, var y, var z, var sum, var same, var other1, var other2) {
+    var pass1, pass2, pass3, pass4 = true;
+    pass1 = limit_rule(a, b, c);
+    pass2 = sum_rule(x, y, z);
+    pass3 = single_same_rule(a, b, c, sum);
+    pass4 = zero_max_rule(other1, other2, same);
+    if (pass1 == false || pass2 == false || pass3 == false || pass4 == false) {
+      return false;
+    }
+    return true;
+  }
+  draw_rect( rctx, rstroke, rfill, rx, ry, rw ,rh ) {
+      rstroke = rstroke || 'lightgrey';
+      rfill = rfill || 'dimgrey';
+      rx = rx || 0;
+      ry = ry || 0;
+      rctx.save( );
+      rctx.strokeStyle = rstroke;
+      rctx.fillStyle = rfill;
+      rctx.lineWidth = 1;
+      rctx.fillRect( rx, ry, rw, rh );
+      rctx.stroke( );
+      rctx.restore( );
+  }
+  draw_node(rctx, rnode){
+    rctx.save();
+    rctx.beginPath();
+    rctx.arc(rnode.x, rnode.y, 20, 0, 2 * Math.PI);
+    rctx.closePath();
+    rctx.strokeStyle = 'blue';
+    rctx.lineWidth = 0.5;
+    rctx.fillStyle = 'yellow';
+    rctx.fill();
+    rctx.stroke();
+    rctx.restore();
+  }
+  draw_line(rctx, rnode1, rnode2){
+    rctx.save();
+    rctx.beginPath();
+    rctx.moveTo(node1.x, node2.x);
+    rctx.lineTo(node1.x, node2.x);
+    rctx.closePath();
+    rctx.strokeStyle = 'purple';
+    rctx.lineWidth = 0.5;
+    rctx.fillStyle = 'purple';
+    rctx.fill();
+    rctx.stroke();
+    rctx.restore();
+  }
 
-let graph = new Graph();
-graph.generate_nodes();
-graph.print_adjacency();
-graph.DFS();
-limit_rule(3, 2, 1);
+}
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-draw_rect( ctx, 'lightgrey', 'black',0,0,800,800);
+graph = new Graph();
+graph.generate_nodes(ctx);
+graph.print_adjacency();
+graph.DFS();
+graph.limit_rule(3, 2, 1);
+
+graph.draw_rect( ctx, 'lightgrey', 'black',0,0,800,800);
 
 
 </script>
 
-</head>
-<body><h1>Check console...</h1>
-<canvas id="canvas" width="800" height="800"></canvas>
 </body>
 </html>
