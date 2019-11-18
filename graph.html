@@ -297,6 +297,7 @@ class Graph {
       rctx.stroke( );
       rctx.restore( );
   }
+
   lines( rctx, rstroke, rfill, rx, ry)
   {
       rstroke = rstroke || 'lightgrey';
@@ -304,6 +305,8 @@ class Graph {
       rx = rx || 0;
       ry = ry || 0;
       rctx.save( );
+      rctx.arc(rx, ry, 10, 0, 2 * Math.PI);
+
       rctx.strokeStyle = rstroke;
       rctx.fillStyle = rfill;
       rctx.lineWidth = 1;
